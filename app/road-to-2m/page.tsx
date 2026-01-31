@@ -134,7 +134,7 @@ export default function RoadTo2M() {
                                     fill="transparent"
                                     className="cursor-pointer"
                                     onMouseEnter={() => setActivePoint(point.id)}
-                                // Removed onMouseLeave to prevent flickering when moving to the visible circle or label
+                                    onMouseLeave={() => setActivePoint(null)}
                                 />
                             ))}
                         </svg>
