@@ -1,11 +1,56 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import RadarMap from "@/components/RadarMap";
 import { ArrowRight, TrendingUp, AlertTriangle, ShieldAlert, CheckCircle2, XCircle, Ban, Target } from "lucide-react";
+import { useState } from "react";
 
 export default function RoadTo2M() {
+    const [activePoint, setActivePoint] = useState<string | null>(null);
+
+    const GRAPH_POINTS = [
+        {
+            id: 'chaos',
+            label: 'The Chaos Zone',
+            subLabel: 'Owner is the only closer',
+            cx: 200, cy: 350,
+            color: '#ef4444', // red-500
+            delay: 0.2,
+            labelPos: { left: '15%', bottom: '15%', textAlign: 'left' as const },
+            tooltip: {
+                title: 'The Trap of "Hustle"',
+                body: 'You are capping your revenue at your own personal bandwidth. 100% of sales depend on you answering the phone.'
+            }
+        },
+        {
+            id: 'valley',
+            label: 'The Valley of Death',
+            subLabel: 'Hiring 1st Salesperson',
+            cx: 400, cy: 300,
+            color: '#eab308', // yellow-400
+            delay: 1.0,
+            labelPos: { left: '38%', top: '55%', textAlign: 'left' as const },
+            tooltip: {
+                title: 'The Profit Dip',
+                body: 'You hire staff, costs go up, but efficiency goes down initially. Most turn back here.'
+            }
+        },
+        {
+            id: 'scale',
+            label: 'Scale Mode ($2M+)',
+            subLabel: 'Systematized Revenue',
+            cx: 850, cy: 90,
+            color: '#22c55e', // green-500
+            delay: 2.2,
+            labelPos: { right: '10%', top: '15%', textAlign: 'right' as const },
+            tooltip: {
+                title: 'The Exit Velocity',
+                body: 'Sales are a process, not a person. Revenue is predictable. You are ready for high-volume leads.'
+            }
+        }
+    ];
+
     return (
         <main className="bg-black min-h-screen text-white selection:bg-blue-500/30">
             <Navbar />
@@ -50,7 +95,8 @@ export default function RoadTo2M() {
                                     <stop offset="100%" stopColor="#22c55e" />
                                 </linearGradient>
                             </defs>
-                            {/* Path: Flat start (chaos), Dip (Valley of Death), Exponential Growth */}
+
+                            {/* Path */}
                             <motion.path
                                 d="M0,350 C200,350 300,380 400,300 C500,200 600,150 1000,50"
                                 fill="none"
@@ -64,63 +110,72 @@ export default function RoadTo2M() {
                                 transition={{ duration: 2.5, ease: "easeInOut" }}
                             />
 
-                            {/* Annotations - Sequenced */}
-                            <motion.circle
-                                cx="200" cy="350" r="6" fill="#ef4444"
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.2, type: "spring" }}
-                            />
-                            <motion.circle
-                                cx="400" cy="300" r="6" fill="#eab308"
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 1.0, type: "spring" }}
-                            />
-                            <motion.circle
-                                cx="850" cy="90" r="6" fill="#22c55e"
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 2.2, type: "spring" }}
-                            />
+                            {/* Mapped Points */}
+                            {GRAPH_POINTS.map((point) => (
+                                <motion.circle
+                                    key={point.id}
+                                    cx={point.cx} cy={point.cy} r={activePoint === point.id ? 8 : 6}
+                                    fill={point.color}
+                                    initial={{ scale: 0 }}
+                                    whileInView={{ scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: point.delay, type: "spring" }}
+                                    className="cursor-pointer hover:stroke-white hover:stroke-2 transition-all duration-300"
+                                    onMouseEnter={() => setActivePoint(point.id)}
+                                    onMouseLeave={() => setActivePoint(null)}
+                                />
+                            ))}
                         </svg>
 
-                        {/* Labels - Sequenced */}
-                        <motion.div
-                            className="absolute left-[15%] bottom-[15%] text-left"
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
-                        >
-                            <p className="text-red-400 font-bold text-sm">The Chaos Zone</p>
-                            <p className="text-white/40 text-xs text-nowrap">Owner is the only closer</p>
-                        </motion.div>
+                        {/* Mapped Labels */}
+                        {GRAPH_POINTS.map((point) => (
+                            <motion.div
+                                key={point.id}
+                                className="absolute cursor-pointer hover:opacity-100 transition-opacity duration-300"
+                                style={{
+                                    ...point.labelPos,
+                                    zIndex: 10
+                                }}
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: activePoint === point.id ? 1 : 1, y: 0 }}
+                                animate={{ opacity: activePoint && activePoint !== point.id ? 0.3 : 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: point.delay + 0.1 }}
+                                onMouseEnter={() => setActivePoint(point.id)}
+                                onMouseLeave={() => setActivePoint(null)}
+                            >
+                                <p className="font-bold text-sm" style={{ color: point.color }}>{point.label}</p>
+                                <p className="text-white/40 text-xs text-nowrap">{point.subLabel}</p>
+                            </motion.div>
+                        ))}
 
-                        <motion.div
-                            className="absolute left-[38%] top-[55%] text-left"
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 1.1 }}
-                        >
-                            <p className="text-yellow-400 font-bold text-sm">The Valley of Death</p>
-                            <p className="text-white/40 text-xs">Hiring 1st Salesperson</p>
-                        </motion.div>
-
-                        <motion.div
-                            className="absolute right-[10%] top-[15%] text-right"
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 2.3 }}
-                        >
-                            <p className="text-green-500 font-bold text-sm">Scale Mode ($2M+)</p>
-                            <p className="text-white/40 text-xs">Systematized Revenue</p>
-                        </motion.div>
+                        {/* Tooltip Popup */}
+                        <AnimatePresence>
+                            {activePoint && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="absolute z-50 p-4 bg-zinc-900/90 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl max-w-xs pointer-events-none"
+                                    style={{
+                                        left: GRAPH_POINTS.find(p => p.id === activePoint)?.cx! > 500 ? 'auto' : (GRAPH_POINTS.find(p => p.id === activePoint)?.cx! / 10 + '%'),
+                                        right: GRAPH_POINTS.find(p => p.id === activePoint)?.cx! > 500 ? '10%' : 'auto', // Flip side if on right
+                                        top: '20%' // Approximate center vertical
+                                    }}
+                                >
+                                    {(() => {
+                                        const p = GRAPH_POINTS.find(p => p.id === activePoint)!;
+                                        return (
+                                            <>
+                                                <h3 className="text-sm font-bold mb-1" style={{ color: p.color }}>{p.tooltip.title}</h3>
+                                                <p className="text-xs text-white/80 leading-relaxed">{p.tooltip.body}</p>
+                                            </>
+                                        );
+                                    })()}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                     <p className="text-sm text-white/30 mt-4 font-mono">FIG 1.0: THE REVENUE BREAKPOINT</p>
                 </div>
