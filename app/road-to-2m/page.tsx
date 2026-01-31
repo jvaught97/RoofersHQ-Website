@@ -51,34 +51,76 @@ export default function RoadTo2M() {
                                 </linearGradient>
                             </defs>
                             {/* Path: Flat start (chaos), Dip (Valley of Death), Exponential Growth */}
-                            <path
+                            <motion.path
                                 d="M0,350 C200,350 300,380 400,300 C500,200 600,150 1000,50"
                                 fill="none"
                                 stroke="url(#line-gradient)"
                                 strokeWidth="4"
                                 strokeLinecap="round"
                                 vectorEffect="non-scaling-stroke"
+                                initial={{ pathLength: 0, opacity: 0 }}
+                                whileInView={{ pathLength: 1, opacity: 1 }}
+                                viewport={{ once: true, amount: 0.5 }}
+                                transition={{ duration: 2.5, ease: "easeInOut" }}
                             />
 
-                            {/* Annotations */}
-                            <circle cx="200" cy="350" r="6" fill="#ef4444" />
-                            <circle cx="400" cy="300" r="6" fill="#eab308" />
-                            <circle cx="850" cy="90" r="6" fill="#22c55e" />
+                            {/* Annotations - Sequenced */}
+                            <motion.circle
+                                cx="200" cy="350" r="6" fill="#ef4444"
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.2, type: "spring" }}
+                            />
+                            <motion.circle
+                                cx="400" cy="300" r="6" fill="#eab308"
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 1.0, type: "spring" }}
+                            />
+                            <motion.circle
+                                cx="850" cy="90" r="6" fill="#22c55e"
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 2.2, type: "spring" }}
+                            />
                         </svg>
 
-                        {/* Labels */}
-                        <div className="absolute left-[15%] bottom-[15%] text-left">
+                        {/* Labels - Sequenced */}
+                        <motion.div
+                            className="absolute left-[15%] bottom-[15%] text-left"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.3 }}
+                        >
                             <p className="text-red-400 font-bold text-sm">The Chaos Zone</p>
                             <p className="text-white/40 text-xs text-nowrap">Owner is the only closer</p>
-                        </div>
-                        <div className="absolute left-[38%] top-[55%] text-left">
+                        </motion.div>
+
+                        <motion.div
+                            className="absolute left-[38%] top-[55%] text-left"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 1.1 }}
+                        >
                             <p className="text-yellow-400 font-bold text-sm">The Valley of Death</p>
                             <p className="text-white/40 text-xs">Hiring 1st Salesperson</p>
-                        </div>
-                        <div className="absolute right-[10%] top-[15%] text-right">
+                        </motion.div>
+
+                        <motion.div
+                            className="absolute right-[10%] top-[15%] text-right"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 2.3 }}
+                        >
                             <p className="text-green-500 font-bold text-sm">Scale Mode ($2M+)</p>
                             <p className="text-white/40 text-xs">Systematized Revenue</p>
-                        </div>
+                        </motion.div>
                     </div>
                     <p className="text-sm text-white/30 mt-4 font-mono">FIG 1.0: THE REVENUE BREAKPOINT</p>
                 </div>
