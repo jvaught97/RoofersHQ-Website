@@ -17,7 +17,7 @@ export default function RoadTo2M() {
             cx: 200, cy: 350,
             color: '#ef4444', // red-500
             delay: 0.2,
-            labelPos: { left: '15%', bottom: '15%', textAlign: 'left' as const },
+            labelPos: { left: '15%', bottom: '5%', textAlign: 'left' as const }, // Moved lower
             tooltip: {
                 title: 'The Trap of "Hustle"',
                 body: 'You are capping your revenue at your own personal bandwidth. 100% of sales depend on you answering the phone.'
@@ -30,7 +30,7 @@ export default function RoadTo2M() {
             cx: 400, cy: 300,
             color: '#eab308', // yellow-400
             delay: 1.0,
-            labelPos: { left: '38%', top: '55%', textAlign: 'left' as const },
+            labelPos: { left: '38%', top: '80%', textAlign: 'left' as const }, // Moved below the line
             tooltip: {
                 title: 'The Profit Dip',
                 body: 'You hire staff, costs go up, but efficiency goes down initially. Most turn back here.'
@@ -43,7 +43,7 @@ export default function RoadTo2M() {
             cx: 850, cy: 90,
             color: '#22c55e', // green-500
             delay: 2.2,
-            labelPos: { right: '10%', top: '15%', textAlign: 'right' as const },
+            labelPos: { right: '5%', top: '5%', textAlign: 'right' as const }, // Moved higher and right
             tooltip: {
                 title: 'The Exit Velocity',
                 body: 'Sales are a process, not a person. Revenue is predictable. You are ready for high-volume leads.'
