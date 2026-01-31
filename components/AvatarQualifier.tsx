@@ -46,7 +46,7 @@ export default function AvatarQualifier() {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
-                        className="relative group order-2 md:order-1"
+                        className="relative group"
                     >
                         {/* Golden/Green Glow */}
                         <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 rounded-3xl blur-md opacity-40 group-hover:opacity-60 transition-all duration-500" />
@@ -102,7 +102,7 @@ export default function AvatarQualifier() {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
-                        className="relative order-1 md:order-2"
+                        className="relative"
                     >
                         {/* Red Glow */}
                         <div className="absolute -inset-1 bg-gradient-to-br from-red-600 via-red-900 to-black rounded-3xl blur-md opacity-20 group-hover:opacity-40 transition-all duration-500" />
