@@ -196,7 +196,7 @@ export default function RoadTo2M() {
 
                     <div className="mt-20 p-8 bg-gradient-to-r from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-2xl text-center">
                         <h3 className="text-2xl font-bold mb-4">Are you already here?</h3>
-                        <p className="text-white/60 mb-8">If you have a CRM, a sales team, and >$2M revenue, you are ready for fuel.</p>
+                        <p className="text-white/60 mb-8">If you have a CRM, a sales team, and &gt;$2M revenue, you are ready for fuel.</p>
                         <a href="/verify" className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-200 transition-colors">
                             Verify Your Territory <ArrowRight className="w-4 h-4" />
                         </a>
