@@ -12,7 +12,7 @@ const MapInstance = dynamic(() => import("./MapInstance"), {
     ),
 });
 
-import { MapContainer } from "react-leaflet";
+
 
 export default function RadarMap() {
     return (
@@ -35,15 +35,10 @@ export default function RadarMap() {
             </div>
 
             {/* The Map */}
-            <MapContainer
-                center={[32.7767, -96.7970]}
-                zoom={11}
-                scrollWheelZoom={false}
-                className="w-full h-full z-0"
-                zoomControl={false}
-            >
+            {/* The Map */}
+            <div className="w-full h-full z-0 relative">
                 <MapInstance />
-            </MapContainer>
+            </div>
 
             {/* Overlay Grid/HUD Effects */}
             <div className="absolute inset-0 pointer-events-none z-[500] border-2 border-white/5 rounded-2xl">

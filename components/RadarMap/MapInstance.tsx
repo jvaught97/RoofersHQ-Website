@@ -1,10 +1,20 @@
 "use client";
 
-import { useMap, TileLayer, Marker, Popup } from "react-leaflet";
+import { useMap, TileLayer, Marker, Popup, MapContainer } from "react-leaflet";
 import { useEffect, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { X, Lock, AlertTriangle, Building2, TrendingUp, Info } from "lucide-react";
+
+interface GhostSignal {
+    id: string;
+    lat: number;
+    lng: number;
+    bldgClass: string;
+    sqFt: number;
+    signal: typeof INTENT_SIGNALS[0];
+    timestamp: number;
+}
 
 // INTENT SIGNAL CATALOG
 const INTENT_SIGNALS = [
@@ -34,17 +44,21 @@ const createPulseIcon = () => {
     });
 };
 
-interface GhostSignal {
-    id: string;
-    lat: number;
-    lng: number;
-    bldgClass: string;
-    sqFt: number;
-    signal: typeof INTENT_SIGNALS[0];
-    timestamp: number;
+export default function MapInstance() {
+    return (
+        <MapContainer
+            center={[32.7767, -96.7970]}
+            zoom={11}
+            scrollWheelZoom={false}
+            className="w-full h-full z-0"
+            zoomControl={false}
+        >
+            <RadarMapLogic />
+        </MapContainer>
+    );
 }
 
-export default function MapInstance() {
+function RadarMapLogic() {
     const map = useMap();
     const [signals, setSignals] = useState<GhostSignal[]>([]);
     const [selectedSignal, setSelectedSignal] = useState<GhostSignal | null>(null);
