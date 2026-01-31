@@ -63,18 +63,43 @@ function RadarMapLogic({ centerCoords }: { centerCoords: [number, number] }) {
     const [signals, setSignals] = useState<GhostSignal[]>([]);
     const [selectedSignal, setSelectedSignal] = useState<GhostSignal | null>(null);
     const [isRestrictedModalOpen, setIsRestrictedModalOpen] = useState(false);
+    const [isScanning, setIsScanning] = useState(false);
 
     // Update view when centerCoords changes
     useEffect(() => {
         if (centerCoords) {
-            map.flyTo(centerCoords, 11, { duration: 2 });
-            generateSignals(centerCoords[0], centerCoords[1]);
+            // PHASE 1: CLEAR & INITIATE FLIGHT
+            setSignals([]);
+            setIsRestrictedModalOpen(false);
+
+            // Cinematic Fly-To: Long duration, smooth linearity for "Satellite" feel
+            map.flyTo(centerCoords, 11, {
+                duration: 3.5,
+                easeLinearity: 0.2,
+                animate: true
+            });
+
+            // PHASE 2: SCANNING SEQUENCE (Triggered after flight)
+            const flightDuration = 3500;
+            const scanDuration = 1500;
+
+            const scanTimer = setTimeout(() => {
+                setIsScanning(true);
+
+                // PHASE 3: REVEAL SIGNALS
+                setTimeout(() => {
+                    generateSignals(centerCoords[0], centerCoords[1]);
+                    setIsScanning(false);
+                }, scanDuration);
+
+            }, flightDuration);
+
+            return () => clearTimeout(scanTimer);
         }
     }, [centerCoords, map]);
 
     // Initial positioning (fallback)
     useEffect(() => {
-        // Only run if we haven't already set signals (initial load)
         if (signals.length === 0 && !centerCoords) {
             map.setView([32.7767, -96.7970], 11);
             generateSignals(32.7767, -96.7970);
@@ -83,7 +108,8 @@ function RadarMapLogic({ centerCoords }: { centerCoords: [number, number] }) {
 
     const generateSignals = (lat: number, lng: number) => {
         const newSignals: GhostSignal[] = [];
-        for (let i = 0; i < 12; i++) {
+        const signalCount = Math.floor(Math.random() * 11) + 5; // Random between 5-15
+        for (let i = 0; i < signalCount; i++) {
             const latOffset = (Math.random() - 0.5) * 0.15;
             const lngOffset = (Math.random() - 0.5) * 0.15;
             newSignals.push({
@@ -156,6 +182,25 @@ function RadarMapLogic({ centerCoords }: { centerCoords: [number, number] }) {
                     </Popup>
                 </Marker>
             ))}
+
+            {/* SCANNING OVERLAY */}
+            {isScanning && (
+                <div className="absolute inset-0 z-[800] flex flex-col items-center justify-center bg-black/20 pointer-events-none">
+                    <div className="bg-black/80 backdrop-blur-md border border-red-500/30 px-6 py-4 rounded-lg shadow-2xl flex flex-col items-center gap-3">
+                        <div className="flex items-center gap-3">
+                            <AlertTriangle className="w-5 h-5 text-red-500 animate-spin-slow" />
+                            <span className="text-red-500 font-mono font-bold tracking-widest animate-pulse">ACQUIRING TARGET DATA...</span>
+                        </div>
+                        {/* Progress Bar */}
+                        <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-red-500 animate-progress-fill" style={{ width: '100%' }}></div>
+                        </div>
+                        <div className="text-[10px] text-white/40 font-mono">
+                            SAT-LINK: ESTABLISHING HANDSHAKE
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* RESTRICTED MODAL */}
             {isRestrictedModalOpen && (
