@@ -26,13 +26,26 @@ export default function RadarMap() {
 
         setIsSearching(true);
         try {
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=1`);
+            // Enhanced query logic for US-centric results
+            const isZipCode = /^\d{5}(-\d{4})?$/.test(searchQuery.trim());
+
+            let url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us`;
+
+            if (isZipCode) {
+                url += `&postalcode=${encodeURIComponent(searchQuery.trim())}`;
+            } else {
+                url += `&q=${encodeURIComponent(searchQuery)}`;
+            }
+
+            const response = await fetch(url);
             const data = await response.json();
 
             if (data && data.length > 0) {
                 const lat = parseFloat(data[0].lat);
                 const lon = parseFloat(data[0].lon);
                 setCenterCoords([lat, lon]);
+            } else {
+                console.warn("Location not found");
             }
         } catch (error) {
             console.error("Geocoding failed", error);
