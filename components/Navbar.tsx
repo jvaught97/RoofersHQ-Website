@@ -47,6 +47,9 @@ export default function Navbar() {
                         <a href="/solution" className="text-sm text-white/60 hover:text-white transition-colors uppercase tracking-widest font-medium">
                             The Solution
                         </a>
+                        <a href="/road-to-2m" className="text-sm text-white/60 hover:text-white transition-colors uppercase tracking-widest font-medium">
+                            Roadmap
+                        </a>
 
                         <a href="/verify?source=nav_check" className="group relative overflow-hidden bg-[#CA8A04] hover:bg-[#EAB308] text-black px-7 py-3 font-bold uppercase tracking-wider text-sm transition-all duration-300 shadow-[0_0_20px_rgba(202,138,4,0.3)] hover:shadow-[0_0_30px_rgba(202,138,4,0.5)]">
                             <span className="relative z-10 flex items-center gap-2">
@@ -91,6 +94,13 @@ export default function Navbar() {
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 The Solution
+                            </a>
+                            <a
+                                href="/road-to-2m"
+                                className="text-3xl font-display font-bold text-white tracking-tight"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Roadmap
                             </a>
                             <div className="h-px w-full bg-white/10 my-2" />
                             <a
