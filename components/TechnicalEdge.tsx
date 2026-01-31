@@ -38,7 +38,7 @@ export default function TechnicalEdge() {
                     </div>
                 </div>
 
-                <div className="w-full md:w-1/2 relative bg-blue-900/5 border border-blue-500/20 rounded-xl p-8 aspect-square md:aspect-auto h-[500px] flex flex-col overflow-hidden backdrop-blur-sm group hover:border-blue-500/40 transition-colors duration-500">
+                <div className="w-full md:w-1/2 relative bg-blue-900/5 border border-blue-500/20 rounded-xl p-8 h-auto md:h-[500px] flex flex-col overflow-hidden backdrop-blur-sm group hover:border-blue-500/40 transition-colors duration-500">
                     {/* Visual Abstraction of Data Stream */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(59,130,246,0.05)_50%,transparent_100%)] animate-scan pointer-events-none" />
 
@@ -50,7 +50,7 @@ export default function TechnicalEdge() {
                         <TypedTerminalLine text="> PUSHING TO CRM... SUCCESS" delay={6} className="text-blue-400 font-bold" />
                     </div>
 
-                    <div className="mt-auto md:mt-12 bg-black/80 backdrop-blur-md border border-blue-500/30 p-6 rounded-lg relative z-20 shadow-2xl shadow-blue-900/20 group-hover:shadow-blue-500/20 transition-all duration-500">
+                    <div className="mt-8 md:mt-12 bg-black/80 backdrop-blur-md border border-blue-500/30 p-6 rounded-lg relative z-20 shadow-2xl shadow-blue-900/20 group-hover:shadow-blue-500/20 transition-all duration-500">
                         <div className="flex items-center justify-between mb-4">
                             <div className="text-sm text-gray-400">Lead Source</div>
                             <div className="text-xs text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded animate-pulse">HIGH INTENT</div>
