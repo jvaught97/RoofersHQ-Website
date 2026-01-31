@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Search } from "lucide-react";
+import { useState } from "react";
 
 const MapInstance = dynamic(() => import("./MapInstance"), {
     ssr: false,
@@ -15,29 +16,55 @@ const MapInstance = dynamic(() => import("./MapInstance"), {
 
 
 export default function RadarMap() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isSearching, setIsSearching] = useState(false);
+    const [centerCoords, setCenterCoords] = useState<[number, number]>([32.7767, -96.7970]); // Default Dallas
+
+    const handleSearch = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!searchQuery) return;
+
+        setIsSearching(true);
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=1`);
+            const data = await response.json();
+
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                setCenterCoords([lat, lon]);
+            }
+        } catch (error) {
+            console.error("Geocoding failed", error);
+        } finally {
+            setIsSearching(false);
+        }
+    };
+
     return (
         <div className="w-full h-[600px] relative rounded-2xl overflow-hidden border border-white/10 group">
             {/* Search Bar Overlay */}
             <div className="absolute top-6 left-6 z-[1000] w-full max-w-sm">
-                <div className="relative">
+                <form onSubmit={handleSearch} className="relative">
                     <input
                         type="text"
                         placeholder="ENTER ZIP CODE OR CITY..."
-                        className="w-full bg-black/90 border border-white/20 text-white text-sm font-mono py-3 pl-10 pr-4 rounded-lg focus:outline-none focus:border-red-500/50 backdrop-blur-md"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full bg-black/90 border border-white/20 text-white text-sm font-mono py-3 pl-10 pr-4 rounded-lg focus:outline-none focus:border-red-500/50 backdrop-blur-md transition-colors"
                     />
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                     <div className="absolute right-3 top-1/2 -translate-y-1/2">
                         <div className="flex gap-1">
-                            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                            <span className={`w-2 h-2 rounded-full ${isSearching ? 'bg-yellow-500 animate-ping' : 'bg-red-500 animate-pulse'}`} />
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
 
             {/* The Map */}
-            {/* The Map */}
             <div className="w-full h-full z-0 relative">
-                <MapInstance />
+                <MapInstance centerCoords={centerCoords} />
             </div>
 
             {/* Overlay Grid/HUD Effects */}
@@ -54,7 +81,7 @@ export default function RadarMap() {
                 </div>
                 <div className="absolute bottom-4 left-4 text-[10px] font-mono text-white/30">
                     <p>GRID: 844-X-ALPHA</p>
-                    <p>LAT: 32.7767 // LNG: -96.7970</p>
+                    <p>LAT: {centerCoords[0].toFixed(4)} // LNG: {centerCoords[1].toFixed(4)}</p>
                 </div>
             </div>
         </div>

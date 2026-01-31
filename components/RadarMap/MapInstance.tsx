@@ -44,7 +44,7 @@ const createPulseIcon = () => {
     });
 };
 
-export default function MapInstance() {
+export default function MapInstance({ centerCoords }: { centerCoords: [number, number] }) {
     return (
         <MapContainer
             center={[32.7767, -96.7970]}
@@ -53,21 +53,32 @@ export default function MapInstance() {
             className="w-full h-full z-0"
             zoomControl={false}
         >
-            <RadarMapLogic />
+            <RadarMapLogic centerCoords={centerCoords} />
         </MapContainer>
     );
 }
 
-function RadarMapLogic() {
+function RadarMapLogic({ centerCoords }: { centerCoords: [number, number] }) {
     const map = useMap();
     const [signals, setSignals] = useState<GhostSignal[]>([]);
     const [selectedSignal, setSelectedSignal] = useState<GhostSignal | null>(null);
     const [isRestrictedModalOpen, setIsRestrictedModalOpen] = useState(false);
 
-    // Initial positioning
+    // Update view when centerCoords changes
     useEffect(() => {
-        map.setView([32.7767, -96.7970], 11); // Default to Dallas (Central)
-        generateSignals(32.7767, -96.7970);
+        if (centerCoords) {
+            map.flyTo(centerCoords, 11, { duration: 2 });
+            generateSignals(centerCoords[0], centerCoords[1]);
+        }
+    }, [centerCoords, map]);
+
+    // Initial positioning (fallback)
+    useEffect(() => {
+        // Only run if we haven't already set signals (initial load)
+        if (signals.length === 0 && !centerCoords) {
+            map.setView([32.7767, -96.7970], 11);
+            generateSignals(32.7767, -96.7970);
+        }
     }, [map]);
 
     const generateSignals = (lat: number, lng: number) => {
