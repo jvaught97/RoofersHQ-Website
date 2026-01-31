@@ -617,23 +617,23 @@ function HeroOverlay({ progress }: { progress: MotionValue<number> }) {
         <motion.div
             initial={{ opacity: 1 }}
             style={{ opacity, y, pointerEvents, display }}
-            className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-start pt-32 md:pt-48 text-center z-[61] pointer-events-none"
+            className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center pt-20 md:pt-48 text-center z-[61] pointer-events-none px-4"
         >
-            <div className="pointer-events-auto bg-black/80 backdrop-blur-md p-12 rounded-3xl border border-white/10 shadow-2xl max-w-4xl">
-                <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight uppercase leading-none drop-shadow-xl">
+            <div className="pointer-events-auto bg-black/80 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl max-w-4xl w-full">
+                <h2 className="text-4xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight uppercase leading-none drop-shadow-xl">
                     The <span className="text-[#CA8A04]">Anti-Agency</span> <br />
                     For Commercial Roofers
                 </h2>
-                <p className="text-xl md:text-3xl text-white/80 font-light mb-8 max-w-2xl mx-auto drop-shadow-md">
+                <p className="text-lg md:text-3xl text-white/80 font-light mb-6 md:mb-8 max-w-2xl mx-auto drop-shadow-md">
                     Stop paying for shared leads. Get exclusive, verified commercial appointments injected into your CRM.
                 </p>
-                <a href="/verify?source=hero_audit" onClick={handleHeroCTAClick} className="pointer-events-auto px-10 py-5 bg-white text-black text-lg font-bold uppercase tracking-widest hover:bg-[#CA8A04] hover:text-white transition-all shadow-xl flex items-center gap-3 mx-auto group mb-4 inline-flex">
+                <a href="/verify?source=hero_audit" onClick={handleHeroCTAClick} className="pointer-events-auto px-8 py-4 md:px-10 md:py-5 bg-white text-black text-base md:text-lg font-bold uppercase tracking-widest hover:bg-[#CA8A04] hover:text-white transition-all shadow-xl flex items-center justify-center gap-3 mx-auto group mb-4 inline-flex w-full md:w-auto">
                     Run Market Audit <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
-                <p className="text-white/40 text-sm font-medium tracking-wide">
+                <p className="text-white/40 text-xs md:text-sm font-medium tracking-wide">
                     Free 50-mile radius scan. No credit card required.
                 </p>
-                <div className="mt-6 text-sm text-white/40 uppercase tracking-widest animate-pulse">
+                <div className="mt-6 text-sm text-white/40 uppercase tracking-widest animate-pulse hidden md:block">
                     Scroll to Explore
                 </div>
             </div>

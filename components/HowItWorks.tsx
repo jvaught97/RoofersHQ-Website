@@ -39,7 +39,7 @@ export default function HowItWorks() {
     ];
 
     return (
-        <section className="relative bg-[#0f0f0f] text-white py-32 overflow-hidden border-t border-white/5">
+        <section className="relative bg-[#0f0f0f] text-white py-16 md:py-32 overflow-hidden border-t border-white/5">
             {/* Background Image - Digital Data Stream */}
             <div className="absolute inset-0 bg-[url('/process-bg.png')] bg-cover bg-center opacity-30 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f0f] via-transparent to-[#0f0f0f] pointer-events-none" />
@@ -56,7 +56,7 @@ export default function HowItWorks() {
                     <div className="inline-block bg-white/5 border border-white/10 px-6 py-2 rounded-full mb-6">
                         <span className="text-white/80 text-sm font-bold tracking-widest uppercase">The Process</span>
                     </div>
-                    <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
                         How It Works
                     </h2>
                     <p className="text-xl md:text-2xl text-white/60 font-light max-w-3xl mx-auto">

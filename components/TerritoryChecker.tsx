@@ -118,7 +118,7 @@ export default function TerritoryChecker() {
                                         value={zipCode}
                                         onChange={(e) => setZipCode(e.target.value.replace(/\D/g, "").slice(0, 5))}
                                         placeholder="Enter ZIP Code (e.g., 75201)"
-                                        className="w-full px-8 py-5 bg-[#0a0a0a] border border-white/10 rounded-xl text-white text-lg placeholder:text-white/40 focus:outline-none focus:border-[#CA8A04] focus:ring-2 focus:ring-[#CA8A04]/20 transition-all"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-4 md:py-5 text-lg md:text-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-[#CA8A04]/50 focus:border-[#CA8A04] transition-all text-center font-mono tracking-widest uppercase"
                                         disabled={isChecking}
                                     />
                                     <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />

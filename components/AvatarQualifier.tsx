@@ -7,7 +7,7 @@ export default function AvatarQualifier() {
     const { shouldReduceMotion } = useReducedMotion();
 
     return (
-        <section className="relative bg-[#050505] py-32 overflow-hidden border-t border-white/5">
+        <section className="relative bg-[#050505] py-16 md:py-32 overflow-hidden border-t border-white/5">
             {/* Background Image - Strategic Industrial Blueprint */}
             <div className="absolute inset-0 bg-[url('/blueprint-bg.png')] bg-cover bg-center opacity-60 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505] pointer-events-none" />
@@ -31,7 +31,7 @@ export default function AvatarQualifier() {
                         <span className="text-white/60 text-sm font-bold tracking-[0.2em] uppercase">The Selection Process</span>
                     </div>
 
-                    <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                    <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">
                         Built for the <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500">Top 1%</span>.
                     </h2>
                     <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
