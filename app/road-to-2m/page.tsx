@@ -57,7 +57,7 @@ export default function RoadTo2M() {
 
             {/* HERO SECTION: The Operational Chasm */}
             <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/grid-bg.png')] opacity-10 pointer-events-none" />
+                <div className="absolute inset-0 bg-[url('/road-to-2m-bg-real.png')] bg-cover bg-center opacity-40 pointer-events-none" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
 
                 <div className="container mx-auto px-4 relative z-10 text-center">
@@ -82,14 +82,8 @@ export default function RoadTo2M() {
                     </motion.div>
 
                     {/* VISUAL: The Valley of Death Graph */}
-                    <div className="relative max-w-4xl mx-auto h-[300px] md:h-[400px] bg-black/20 border border-white/10 rounded-2xl p-8 mt-12 overflow-hidden group shadow-2xl backdrop-blur-sm">
-
-                        {/* Realistic Background with Overlay */}
-                        <div className="absolute inset-0 bg-[url('/road-to-2m-bg-real.png')] bg-cover bg-bottom opacity-60 pointer-events-none mix-blend-overlay" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60 pointer-events-none" />
-
-                        {/* Noise Texture */}
-                        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 pointer-events-none" />
+                    <div className="relative max-w-4xl mx-auto h-[300px] md:h-[400px] bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-8 mt-12 overflow-hidden group">
+                        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 pointer-events-none" />
 
                         {/* The Graph Line */}
                         <svg className="w-full h-full" viewBox="0 0 1000 400" preserveAspectRatio="none">
@@ -248,10 +242,11 @@ export default function RoadTo2M() {
             </section>
 
             {/* SECTION 3: The 3 Traps */}
-            <section className="py-24 bg-black relative">
+            <section className="py-24 bg-black relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(220,38,38,0.15)_0%,_rgba(0,0,0,0)_70%)] pointer-events-none" />
                 <div className="container mx-auto px-4 max-w-6xl">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-4">The 3 Growth Traps</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-4">The 3 <span className="text-red-500">Growth Traps</span></h2>
                         <p className="text-white/50">Most roofers die on the hill of "I'll just do it myself."</p>
                     </div>
 
@@ -277,6 +272,7 @@ export default function RoadTo2M() {
 
             {/* SECTION 4: The Roadmap */}
             <section className="py-24 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/roadmap-bg-clean.png')] bg-cover bg-center opacity-30 pointer-events-none" />
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-blue-500/50 to-transparent dashed opacity-20" />
 
                 <div className="container mx-auto px-4 max-w-4xl relative z-10">
@@ -349,10 +345,11 @@ export default function RoadTo2M() {
 
 function TrapCard({ number, title, desc }: { number: string, title: string, desc: string }) {
     return (
-        <div className="p-8 bg-[#0a0a0a] border border-white/5 hover:border-white/10 transition-colors rounded-2xl group">
-            <div className="text-4xl font-mono font-bold text-white/10 mb-6 group-hover:text-white/20 transition-colors">{number}</div>
-            <h3 className="text-xl font-bold mb-4">{title}</h3>
-            <p className="text-white/50 leading-relaxed">{desc}</p>
+        <div className="p-8 bg-[#0a0a0a] border border-white/5 hover:border-red-500/50 transition-all duration-300 rounded-2xl group hover:shadow-[0_0_30px_-10px_rgba(239,68,68,0.3)] relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="text-4xl font-mono font-bold text-white/10 mb-6 group-hover:text-red-500 transition-colors duration-300">{number}</div>
+            <h3 className="text-xl font-bold mb-4 group-hover:text-red-400 transition-colors">{title}</h3>
+            <p className="text-white/50 leading-relaxed group-hover:text-white/70 transition-colors">{desc}</p>
         </div>
     )
 }

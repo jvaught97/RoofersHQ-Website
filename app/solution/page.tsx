@@ -23,6 +23,7 @@ export default function SolutionPage() {
 
             {/* SECTION 1: HERO (Fixed the Engineering) */}
             <section className="relative pt-48 pb-24 px-6 overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/solution-bg-engineering.png')] bg-cover bg-center opacity-40 pointer-events-none" />
                 <div className="absolute top-0 right-0 w-1/2 h-[800px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
 
                 <div className="max-w-5xl mx-auto text-center relative z-10">
