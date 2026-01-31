@@ -83,7 +83,7 @@ export default function RoadTo2M() {
 
                     {/* VISUAL: The Valley of Death Graph */}
                     <div className="relative max-w-4xl mx-auto h-[300px] md:h-[400px] bg-white/5 border border-white/10 rounded-2xl p-8 mt-12 overflow-hidden group">
-                        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20" />
+                        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 pointer-events-none" />
 
                         {/* The Graph Line */}
                         <svg className="w-full h-full" viewBox="0 0 1000 400" preserveAspectRatio="none">
@@ -123,6 +123,18 @@ export default function RoadTo2M() {
                                     className="cursor-pointer hover:stroke-white hover:stroke-2 transition-all duration-300"
                                     onMouseEnter={() => setActivePoint(point.id)}
                                     onMouseLeave={() => setActivePoint(null)}
+                                />
+                            ))}
+
+                            {/* HIT TARGETS (Invisible large circles for easier hovering) */}
+                            {GRAPH_POINTS.map((point) => (
+                                <circle
+                                    key={`hit-${point.id}`}
+                                    cx={point.cx} cy={point.cy} r={24}
+                                    fill="transparent"
+                                    className="cursor-pointer"
+                                    onMouseEnter={() => setActivePoint(point.id)}
+                                // Removed onMouseLeave to prevent flickering when moving to the visible circle or label
                                 />
                             ))}
                         </svg>
