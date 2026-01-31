@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import RadarMap from "@/components/RadarMap";
 import { ArrowRight, TrendingUp, AlertTriangle, ShieldAlert, CheckCircle2, XCircle, Ban, Target } from "lucide-react";
 
 export default function RoadTo2M() {
@@ -200,6 +201,30 @@ export default function RoadTo2M() {
                         <a href="/verify" className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-200 transition-colors">
                             Verify Your Territory <ArrowRight className="w-4 h-4" />
                         </a>
+                    </div>
+                </div>
+            </section>
+            {/* SECTION 5: INTELLIGENCE RADAR */}
+            <section className="py-24 bg-black border-t border-white/5 relative">
+                <div className="container mx-auto px-4 max-w-6xl">
+                    <div className="text-center mb-16">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-bold mb-6 font-mono">
+                            <Target className="w-4 h-4" />
+                            <span>LIVE MARKET INTELLIGENCE</span>
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6">See What You're <span className="text-red-500 line-through decoration-red-500/50">Missing</span>.</h2>
+                        <p className="text-white/50 max-w-2xl mx-auto text-lg">
+                            We track 50-100 commercial repair & replacement signals in your territory every week. <br />
+                            <span className="text-white">This is the volume you can't see.</span>
+                        </p>
+                    </div>
+
+                    <RadarMap />
+
+                    <div className="mt-8 text-center">
+                        <p className="text-[10px] text-white/20 font-mono max-w-3xl mx-auto">
+                            *DISCLAIMER: The Market Radar utilizes a historical data-set and simulated intent-signals to demonstrate the volume of opportunity in your region. Actual live-lead availability is only confirmed during the Official Market Audit for firms exceeding the $2M revenue threshold.
+                        </p>
                     </div>
                 </div>
             </section>

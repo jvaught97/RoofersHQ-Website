@@ -15,9 +15,9 @@ export default function ProblemPage() {
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/commercial_problem_bg.png"
+                        src="/commercial_problem_bg_v3.png"
                         alt="Background"
-                        className="w-full h-full object-cover opacity-30 mix-blend-screen"
+                        className="w-full h-full object-cover opacity-50 mix-blend-screen"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
                     <div className="absolute inset-0 bg-black/40" />
@@ -120,20 +120,23 @@ export default function ProblemPage() {
 
             {/* SECTION 4: DEFINING THE ENEMY */}
             <section className="py-32 relative overflow-hidden">
-                <div className="absolute inset-0 bg-red-900/5" />
+                <div className="absolute inset-0 bg-red-900/5 pointer-events-none" />
                 <div className="container mx-auto px-6 relative z-10">
-                    <div className="max-w-4xl mx-auto bg-[#0F0F0F] border border-white/10 rounded-[2rem] p-10 md:p-16 text-center shadow-2xl">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/80 text-sm font-mono mb-8">
+                    <SpotlightCard className="max-w-4xl mx-auto bg-[#0F0F0F] border border-white/10 rounded-[2rem] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden group">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/80 text-sm font-mono mb-8 relative z-20">
                             <Target className="w-4 h-4 text-red-500" />
                             <span>THE VILLAIN</span>
                         </div>
 
-                        <h2 className="text-3xl md:text-5xl font-bold mb-8 font-display">
+                        <h2 className="text-3xl md:text-5xl font-bold mb-8 font-display relative z-20">
                             The "Agency" Model Was Built for <br />
-                            <span className="text-white italic">Volume</span>, Not <span className="text-red-500 italic">Value</span>.
+                            <span className="text-white italic relative inline-block">
+                                <span className="absolute inset-0 animate-pulse text-red-500 opacity-50 blur-[1px]">Volume</span>
+                                <span>Volume</span>
+                            </span>, Not <span className="text-red-500 italic">Value</span>.
                         </h2>
 
-                        <div className="space-y-6 text-lg text-white/60 leading-relaxed max-w-2xl mx-auto">
+                        <div className="space-y-6 text-lg text-white/60 leading-relaxed max-w-2xl mx-auto relative z-20">
                             <p>
                                 Traditional lead generation agencies are simply data resellers. Their business model depends on churn. They buy a list, spray it out to as many contractors as possible, and move on.
                             </p>
@@ -144,7 +147,7 @@ export default function ProblemPage() {
                                 You are funding their incompetence.
                             </p>
                         </div>
-                    </div>
+                    </SpotlightCard>
                 </div>
             </section>
 
@@ -175,3 +178,54 @@ export default function ProblemPage() {
         </main>
     );
 }
+
+function SpotlightCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+    const divRef = React.useRef<HTMLDivElement>(null);
+    const [position, setPosition] = React.useState({ x: 0, y: 0 });
+    const [opacity, setOpacity] = React.useState(0);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!divRef.current) return;
+
+        const div = divRef.current;
+        const rect = div.getBoundingClientRect();
+
+        setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    };
+
+    const handleMouseEnter = () => {
+        setOpacity(1);
+    };
+
+    const handleMouseLeave = () => {
+        setOpacity(0);
+    };
+
+    return (
+        <div
+            ref={divRef}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            className={`${className} overflow-hidden relative`}
+        >
+            <div
+                className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-10"
+                style={{
+                    opacity,
+                    background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(220, 38, 38, 0.15), transparent 40%)`,
+                }}
+            />
+            <div
+                className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-10"
+                style={{
+                    opacity,
+                    background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(220, 38, 38, 0.1), transparent 40%)`,
+                }}
+            />
+            {children}
+        </div>
+    );
+}
+
+import React from "react";
