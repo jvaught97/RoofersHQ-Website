@@ -82,8 +82,14 @@ export default function RoadTo2M() {
                     </motion.div>
 
                     {/* VISUAL: The Valley of Death Graph */}
-                    <div className="relative max-w-4xl mx-auto h-[300px] md:h-[400px] bg-white/5 border border-white/10 rounded-2xl p-8 mt-12 overflow-hidden group">
-                        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 pointer-events-none" />
+                    <div className="relative max-w-4xl mx-auto h-[300px] md:h-[400px] bg-black/20 border border-white/10 rounded-2xl p-8 mt-12 overflow-hidden group shadow-2xl backdrop-blur-sm">
+
+                        {/* Realistic Background with Overlay */}
+                        <div className="absolute inset-0 bg-[url('/road-to-2m-bg-real.png')] bg-cover bg-bottom opacity-60 pointer-events-none mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60 pointer-events-none" />
+
+                        {/* Noise Texture */}
+                        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 pointer-events-none" />
 
                         {/* The Graph Line */}
                         <svg className="w-full h-full" viewBox="0 0 1000 400" preserveAspectRatio="none">
