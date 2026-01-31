@@ -13,66 +13,60 @@ const MapInstance = dynamic(() => import("./MapInstance"), {
     ),
 });
 
-
+// TOP 10 COMMERCIAL ROOFING MARKETS
+const TERRITORY_DATA = [
+    { label: "Dallas, TX", coords: [32.7767, -96.7970] },
+    { label: "Atlanta, GA", coords: [33.7490, -84.3880] },
+    { label: "Miami, FL", coords: [25.7617, -80.1918] },
+    { label: "Phoenix, AZ", coords: [33.4484, -112.0740] },
+    { label: "Denver, CO", coords: [39.7392, -104.9903] },
+    { label: "Chicago, IL", coords: [41.8781, -87.6298] },
+    { label: "Tampa, FL", coords: [27.9506, -82.4572] },
+    { label: "Oklahoma City, OK", coords: [35.4676, -97.5164] },
+    { label: "Charlotte, NC", coords: [35.2271, -80.8431] },
+    { label: "Nashville, TN", coords: [36.1627, -86.7816] },
+];
 
 export default function RadarMap() {
-    const [searchQuery, setSearchQuery] = useState("");
-    const [isSearching, setIsSearching] = useState(false);
-    const [centerCoords, setCenterCoords] = useState<[number, number]>([32.7767, -96.7970]); // Default Dallas
+    const [selectedTerritory, setSelectedTerritory] = useState(TERRITORY_DATA[0]);
+    const [centerCoords, setCenterCoords] = useState<[number, number]>([32.7767, -96.7970]);
 
-    const handleSearch = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!searchQuery) return;
-
-        setIsSearching(true);
-        try {
-            // Enhanced query logic for US-centric results
-            const isZipCode = /^\d{5}(-\d{4})?$/.test(searchQuery.trim());
-
-            let url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us`;
-
-            if (isZipCode) {
-                url += `&postalcode=${encodeURIComponent(searchQuery.trim())}`;
-            } else {
-                url += `&q=${encodeURIComponent(searchQuery)}`;
-            }
-
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if (data && data.length > 0) {
-                const lat = parseFloat(data[0].lat);
-                const lon = parseFloat(data[0].lon);
-                setCenterCoords([lat, lon]);
-            } else {
-                console.warn("Location not found");
-            }
-        } catch (error) {
-            console.error("Geocoding failed", error);
-        } finally {
-            setIsSearching(false);
+    const handleTerritoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const territory = TERRITORY_DATA.find(t => t.label === e.target.value);
+        if (territory) {
+            setSelectedTerritory(territory);
+            setCenterCoords(territory.coords as [number, number]);
         }
     };
 
     return (
         <div className="w-full h-[600px] relative rounded-2xl overflow-hidden border border-white/10 group">
-            {/* Search Bar Overlay */}
+            {/* Territory Selector Overlay */}
             <div className="absolute top-6 left-6 z-[1000] w-full max-w-sm">
-                <form onSubmit={handleSearch} className="relative">
-                    <input
-                        type="text"
-                        placeholder="ENTER ZIP CODE OR CITY..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-black/90 border border-white/20 text-white text-sm font-mono py-3 pl-10 pr-4 rounded-lg focus:outline-none focus:border-red-500/50 backdrop-blur-md transition-colors"
-                    />
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                        <div className="flex gap-1">
-                            <span className={`w-2 h-2 rounded-full ${isSearching ? 'bg-yellow-500 animate-ping' : 'bg-red-500 animate-pulse'}`} />
+                <div className="relative">
+                    <select
+                        value={selectedTerritory.label}
+                        onChange={handleTerritoryChange}
+                        className="w-full bg-black/90 border border-white/20 text-white text-sm font-mono py-3 pl-10 pr-4 rounded-lg focus:outline-none focus:border-red-500/50 backdrop-blur-md appearance-none cursor-pointer hover:bg-white/5 transition-colors"
+                    >
+                        {TERRITORY_DATA.map((t) => (
+                            <option key={t.label} value={t.label} className="bg-black text-white">
+                                {t.label.toUpperCase()} // ACTIVE
+                            </option>
+                        ))}
+                    </select>
+
+                    {/* Icons */}
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <Search className="w-4 h-4 text-white/40" />
+                    </div>
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <div className="flex gap-2 items-center">
+                            <div className="text-[10px] text-red-500 font-bold animate-pulse">LIVE</div>
+                            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
 
             {/* The Map */}
@@ -89,7 +83,7 @@ export default function RadarMap() {
 
                 {/* Corner decorations */}
                 <div className="absolute top-4 right-4 text-[10px] font-mono text-white/30 text-right">
-                    <p>LIVE FEED // ACTIVE</p>
+                    <p>TERRITORY // {selectedTerritory.label.toUpperCase()}</p>
                     <p>SAT-LINK: CONNECTED</p>
                 </div>
                 <div className="absolute bottom-4 left-4 text-[10px] font-mono text-white/30">
