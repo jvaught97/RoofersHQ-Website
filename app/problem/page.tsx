@@ -12,7 +12,18 @@ export default function ProblemPage() {
 
             {/* SECTION 1: THE MANIFESTO HOOK */}
             <section className="relative pt-48 pb-24 px-6 overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none" />
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/commercial_problem_bg.png"
+                        alt="Background"
+                        className="w-full h-full object-cover opacity-30 mix-blend-screen"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+                    <div className="absolute inset-0 bg-black/40" />
+                </div>
+
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none z-10" />
 
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <motion.div
