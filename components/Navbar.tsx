@@ -3,9 +3,13 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    const pathname = usePathname();
+    const isLandingPage = pathname === "/";
 
     // Lock body scroll when menu is open
     useEffect(() => {
@@ -19,12 +23,32 @@ export default function Navbar() {
         };
     }, [isMobileMenuOpen]);
 
+    // Handle scroll visibility
+    useEffect(() => {
+        const handleScroll = () => {
+            // Show navbar when scrolled down (>10px) on landing page
+            // OR if mobile menu is open
+            // OR if NOT on landing page (always visible)
+            if (!isLandingPage) {
+                setIsVisible(true);
+            } else {
+                setIsVisible(window.scrollY > 10);
+            }
+        };
+
+        // Check on mount
+        handleScroll();
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [isLandingPage]);
+
     return (
         <>
             <motion.nav
                 initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                animate={{ y: isVisible || isMobileMenuOpen ? 0 : -100 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="fixed top-0 left-0 w-full z-[100] px-6 md:px-12 py-4 bg-black/80 backdrop-blur-xl border-b border-white/5 transition-all duration-500"
             >
                 <div className="max-w-[1920px] mx-auto flex items-center justify-between">

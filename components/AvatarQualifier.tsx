@@ -104,54 +104,48 @@ export default function AvatarQualifier() {
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        {/* Red Glow */}
-                        <div className="absolute -inset-1 bg-gradient-to-br from-red-600 via-red-900 to-black rounded-3xl blur-md opacity-20 group-hover:opacity-40 transition-all duration-500" />
+                        {/* Stronger Red Glow - Matched to Green Card Intensity */}
+                        <div className="absolute -inset-1 bg-gradient-to-br from-red-500 via-red-600 to-orange-600 rounded-3xl blur-md opacity-40 group-hover:opacity-60 transition-all duration-500" />
 
-                        <div className="relative bg-[#0a0a0a] border border-red-500/20 rounded-3xl p-10 h-full overflow-hidden">
+                        <div className="relative bg-[#0a0a0a] border border-white/5 rounded-3xl p-10 h-full overflow-hidden">
                             {/* Card Texture */}
                             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20" />
 
                             <div className="flex justify-between items-start mb-10 relative z-10">
-                                <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                                    <div className="text-red-500 font-bold text-xl">✕</div>
+                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40">
+                                    <div className="font-light text-xl">✕</div>
                                 </div>
-                                <div className="px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold tracking-wider">
-                                    ACCESS DENIED
+                                <div className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/40 text-xs font-medium tracking-wider uppercase">
+                                    Not a Fit
                                 </div>
                             </div>
 
-                            <h3 className="relative z-10 text-3xl font-bold text-white mb-2">Disqualified</h3>
-                            <p className="relative z-10 text-red-500/80 font-mono text-sm mb-8">BELOW THRESHOLD • NO INFRASTRUCTURE</p>
+                            <h3 className="relative z-10 text-3xl font-bold text-white mb-2">Strategic Misalignment</h3>
+                            <p className="relative z-10 text-white/40 font-mono text-sm mb-8">BELOW THRESHOLD • OPERATIONAL GAPS</p>
 
                             <ul className="space-y-6 relative z-10">
-                                <li className="flex items-start gap-4 p-4 rounded-xl bg-red-950/10 border border-red-500/10 hover:border-red-500/30 transition-colors">
-                                    <span className="text-red-500/50 font-mono text-lg pt-0.5">01</span>
+                                <li className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2.5 box-content border-4 border-red-500/20" />
                                     <div>
-                                        <span className="block text-white font-bold text-lg">Under $2M Revenue</span>
-                                        <span className="text-white/60 text-sm">Lacks operational scale for volume</span>
+                                        <span className="block text-white/90 font-medium text-lg">Under $2M Revenue</span>
+                                        <span className="text-white/50 text-sm">Requires operational scale for volume</span>
                                     </div>
                                 </li>
-                                <li className="flex items-start gap-4 p-4 rounded-xl bg-red-950/10 border border-red-500/10 hover:border-red-500/30 transition-colors">
-                                    <span className="text-red-500/50 font-mono text-lg pt-0.5">02</span>
+                                <li className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2.5 box-content border-4 border-red-500/20" />
                                     <div>
-                                        <span className="block text-white font-bold text-lg">No Sales Structure</span>
-                                        <span className="text-white/60 text-sm">Undefined closing process</span>
+                                        <span className="block text-white/90 font-medium text-lg">No Sales Infrastructure</span>
+                                        <span className="text-white/50 text-sm">Undefined intake & closing process</span>
                                     </div>
                                 </li>
-                                <li className="flex items-start gap-4 p-4 rounded-xl bg-red-950/10 border border-red-500/10 hover:border-red-500/30 transition-colors">
-                                    <span className="text-red-500/50 font-mono text-lg pt-0.5">03</span>
+                                <li className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2.5 box-content border-4 border-red-500/20" />
                                     <div>
-                                        <span className="block text-white font-bold text-lg">Poor Data Hygiene</span>
-                                        <span className="text-white/60 text-sm">Cannot track attribution/ROI</span>
+                                        <span className="block text-white/90 font-medium text-lg">Reactive Growth</span>
+                                        <span className="text-white/50 text-sm">Lacking data attribution/ROI tracking</span>
                                     </div>
                                 </li>
                             </ul>
-
-                            <div className="relative z-10 mt-8 text-center">
-                                <a href="/road-to-2m" className="text-red-400 hover:text-red-300 text-sm font-bold border-b border-red-500/30 hover:border-red-500 transition-all pb-0.5">
-                                    Read Why: The Road to $2M &rarr;
-                                </a>
-                            </div>
                         </div>
                     </motion.div>
                 </div>

@@ -1,10 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import RadarMap from "@/components/RadarMap";
-import { ArrowRight, TrendingUp, AlertTriangle, ShieldAlert, CheckCircle2, XCircle, Ban, Target } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, TrendingUp, AlertTriangle, ShieldAlert, CheckCircle2, XCircle, Ban, Target, ChevronRight, X } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import RoadmapInteractive from "@/components/RoadmapInteractive";
 
 export default function RoadTo2M() {
     const [activePoint, setActivePoint] = useState<string | null>(null);
@@ -275,42 +277,20 @@ export default function RoadTo2M() {
                 <div className="absolute inset-0 bg-[url('/roadmap-bg-clean.png')] bg-cover bg-center opacity-30 pointer-events-none" />
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-blue-500/50 to-transparent dashed opacity-20" />
 
-                <div className="container mx-auto px-4 max-w-4xl relative z-10">
+                <div className="container mx-auto px-4 max-w-7xl relative z-10">
                     <div className="text-center mb-16">
                         <div className="inline-block px-4 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-bold mb-4 border border-green-500/20">THE FIX</div>
                         <h2 className="text-3xl md:text-5xl font-bold mb-4">Your Roadmap to $2M</h2>
                         <p className="text-white/50">Execute these 3 steps, and you'll be ready for us.</p>
                     </div>
 
-                    <div className="space-y-12">
-                        {/* Step 1 */}
-                        <RoadmapStep
-                            step="01"
-                            title="Digitize Content & Ops"
-                            desc="Stop using paper folders. Implement a CRM (JobNimbus/HubSpot). If it's not in the CRM, it didn't happen."
-                            icon={<Target className="w-6 h-6 text-blue-400" />}
-                        />
-                        {/* Step 2 */}
-                        <RoadmapStep
-                            step="02"
-                            title="Hire The First Seller"
-                            desc="This is the hardest hire. Not an estimator—a hunter. Pay them a base + comms. Get off the roof."
-                            icon={<TrendingUp className="w-6 h-6 text-indigo-400" />}
-                        />
-                        {/* Step 3 */}
-                        <RoadmapStep
-                            step="03"
-                            title="Standardize The Bid"
-                            desc="Your proposals should look identical regardless of who sends them. Speed wins."
-                            icon={<CheckCircle2 className="w-6 h-6 text-emerald-400" />}
-                        />
-                    </div>
+                    <RoadmapInteractive />
 
-                    <div className="mt-20 p-8 bg-gradient-to-r from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-2xl text-center">
+                    <div className="mt-24 p-8 bg-gradient-to-r from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-2xl text-center max-w-4xl mx-auto">
                         <h3 className="text-2xl font-bold mb-4">Are you already here?</h3>
                         <p className="text-white/60 mb-8">If you have a CRM, a sales team, and &gt;$2M revenue, you are ready for fuel.</p>
                         <a href="/verify" className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-200 transition-colors">
-                            Verify Your Territory <ArrowRight className="w-4 h-4" />
+                            Verify My Territory <ArrowRight className="w-4 h-4" />
                         </a>
                     </div>
                 </div>
@@ -354,21 +334,4 @@ function TrapCard({ number, title, desc }: { number: string, title: string, desc
     )
 }
 
-function RoadmapStep({ step, title, desc, icon }: { step: string, title: string, desc: string, icon: React.ReactNode }) {
-    return (
-        <div className="flex gap-6 md:gap-12 items-start group">
-            <div className="hidden md:flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-blue-500/50 transition-colors relative z-10 bg-[#050505]">
-                    {icon}
-                </div>
-            </div>
-            <div className="flex-1 p-8 bg-[#0a0a0a] border border-white/5 rounded-2xl hover:border-blue-500/20 transition-all hover:-translate-y-1 duration-300">
-                <div className="flex items-center gap-4 mb-4">
-                    <span className="text-blue-500 font-mono text-sm">{step}</span>
-                    <h3 className="text-2xl font-bold">{title}</h3>
-                </div>
-                <p className="text-white/50 text-lg leading-relaxed">{desc}</p>
-            </div>
-        </div>
-    )
-}
+

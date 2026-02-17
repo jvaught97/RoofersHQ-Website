@@ -1,93 +1,136 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import React from "react";
 
 export default function TechnicalEdge() {
     return (
-        <section className="bg-[#02040a] py-32 relative overflow-hidden text-white">
-            {/* Cyber Intelligence Background */}
-            <div className="absolute inset-0 bg-[url('/cyber-bg.png')] bg-cover bg-center opacity-20 pointer-events-none mix-blend-screen" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#02040a] via-transparent to-[#02040a] pointer-events-none" />
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-900/10 blur-[120px] rounded-full pointer-events-none" />
+        <section className="relative min-h-[80vh] flex items-center justify-center text-white overflow-hidden py-24">
+            {/* Realistic Background Image */}
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="/tech-edge-real.png"
+                    alt="Data Center Technical Edge"
+                    fill
+                    className="object-cover"
+                    priority
+                />
+                <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#02040a] via-transparent to-transparent opacity-80" />
+            </div>
 
-            <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-16">
+            <div className="container mx-auto px-4 relative z-10 mt-12">
 
-                <div className="w-full md:w-1/2">
+                {/* Header Section */}
+                <div className="mb-20 max-w-4xl">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="flex items-center gap-4 mb-6"
+                    >
+                        <div className="h-[1px] w-12 bg-white/50" />
+                        <span className="uppercase tracking-[0.2em] text-sm text-white/70 font-medium">Statistics</span>
+                    </motion.div>
 
-                    <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
-                        The Technical Edge: <br />
-                        <span className="text-blue-500">Data Warfare</span>
-                    </h2>
-                    <p className="text-xl text-white/60 mb-8 leading-relaxed">
-                        We don't guess. We track digital footprints. Our system monitors commercial property intent signals across the web in real-time.
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="text-5xl md:text-7xl font-bold leading-tight uppercase"
+                    >
+                        RooferHQ By The <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Numbers</span>
+                    </motion.h2>
+                </div>
+
+                {/* Statistics Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-20 border-t border-white/10 pt-16">
+                    <StatItem
+                        value={200}
+                        suffix="+"
+                        label="Data Sources Monitored"
+                        delay={0.4}
+                        description="Real-time monitoring of permit filings, tax records, and material purchase orders."
+                    />
+                    <StatItem
+                        value={15}
+                        suffix="M+"
+                        label="Properties Tracked"
+                        delay={0.6}
+                        description="Comprehensive coverage of commercial industrial, retail, and multi-family assets."
+                    />
+                    <StatItem
+                        value={98}
+                        suffix="%"
+                        label="Verification Rate"
+                        delay={0.8}
+                        description="Proprietary AI filters ensure you only speak to verified decision makers."
+                    />
+                </div>
+
+                {/* Footer/CTA */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 1 }}
+                    className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
+                >
+                    <p className="text-lg text-white/60 max-w-2xl leading-relaxed">
+                        We don't guess. We track digital footprints using sophisticated signals intelligence to deliver exclusive appointments directly to your CRM.
                     </p>
 
-                    <div className="space-y-8">
-                        <EdgeFeature
-                            title="Behavioral Tracking"
-                            desc="We de-anonymize decision-makers visiting manufacturing spec sites, commercial insurance portals, and roofing material supplier pages."
-                        />
-                        <EdgeFeature
-                            title="Firmographic Filtering"
-                            desc="We filter targets by building square footage (20k sq ft+), specific industries (Warehousing, Retail), and localized intent."
-                        />
-                        <EdgeFeature
-                            title="Instant Attribution"
-                            desc="You know exactly which URL triggered the lead, giving your sales team the 'Why Now' context to open the conversation."
-                        />
-                    </div>
-                </div>
-
-                <div className="w-full md:w-1/2 relative bg-blue-900/5 border border-blue-500/20 rounded-xl p-8 h-auto md:h-[500px] flex flex-col overflow-hidden backdrop-blur-sm group hover:border-blue-500/40 transition-colors duration-500">
-                    {/* Visual Abstraction of Data Stream */}
-                    <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(59,130,246,0.05)_50%,transparent_100%)] animate-scan pointer-events-none" />
-
-                    <div className="font-mono text-xs text-blue-300/70 space-y-2 relative z-10">
-                        <TypedTerminalLine text="> DETECTED: 50,000 SQ FT WAREHOUSE" delay={0} />
-                        <TypedTerminalLine text='> INTENT SIGNAL: "TPO REPAIR ESTIMATE"' delay={1.5} />
-                        <TypedTerminalLine text="> DE-ANONYMIZING IP: 192.168.X.X" delay={3} />
-                        <TypedTerminalLine text="> MATCH FOUND: FACILITIES MANAGER [VERIFIED]" delay={4.5} />
-                        <TypedTerminalLine text="> PUSHING TO CRM... SUCCESS" delay={6} className="text-blue-400 font-bold" />
-                    </div>
-
-                    <div className="mt-8 md:mt-12 bg-black/80 backdrop-blur-md border border-blue-500/30 p-6 rounded-lg relative z-20 shadow-2xl shadow-blue-900/20 group-hover:shadow-blue-500/20 transition-all duration-500">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="text-sm text-gray-400">Lead Source</div>
-                            <div className="text-xs text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded animate-pulse">HIGH INTENT</div>
-                        </div>
-                        <div className="text-lg font-bold text-white">Industrial Properties LLC</div>
-                        <div className="text-sm text-gray-500 mb-2">Manufacturing • 120k sq ft</div>
-                        <div className="flex gap-2 items-center">
-                            <div className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]" />
-                            <div className="text-sm text-gray-300">John Doe (Facility Director)</div>
-                        </div>
-                    </div>
-                </div>
+                    <Link href="/solution" className="group flex items-center gap-3 text-white font-semibold tracking-wider hover:text-blue-400 transition-colors">
+                        EXPLORE TECHNOLOGY <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                </motion.div>
 
             </div>
+
+            {/* Decorative Bottom Wave/Fade */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#02040a] to-transparent pointer-events-none" />
         </section>
     );
 }
 
-function TypedTerminalLine({ text, delay, className = "" }: { text: string, delay: number, className?: string }) {
-    return (
-        <motion.p
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay }}
-            className={`border-r-2 border-transparent animate-blink ${className}`}
-        >
-            {text}
-        </motion.p>
-    );
-}
+function StatItem({ value, suffix, label, description, delay }: { value: number, suffix: string, label: string, description: string, delay: number }) {
+    const ref = React.useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const count = useMotionValue(0);
+    const rounded = useTransform(count, Math.round);
 
-function EdgeFeature({ title, desc }: { title: string, desc: string }) {
+    React.useEffect(() => {
+        if (isInView) {
+            animate(count, value, { duration: 2, ease: "easeOut" });
+        }
+    }, [isInView, value, count]);
+
     return (
-        <div className="pl-6 border-l-2 border-blue-900 hover:border-blue-500 transition-colors">
-            <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-            <p className="text-white/50 text-sm leading-relaxed">{desc}</p>
-        </div>
-    )
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay }}
+            className="group relative"
+        >
+            <div className="flex items-baseline mb-4">
+                <motion.h3 className="text-6xl md:text-7xl font-bold tracking-tight">
+                    {rounded}
+                </motion.h3>
+                <span className="text-6xl md:text-7xl font-bold tracking-tight text-blue-400">{suffix}</span>
+            </div>
+            <div className="text-sm font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                {label}
+            </div>
+            <p className="text-white/50 text-sm leading-relaxed max-w-xs group-hover:text-white/70 transition-colors">
+                {description}
+            </p>
+        </motion.div>
+    );
 }

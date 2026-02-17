@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { WebVitals } from "@/components/WebVitals";
 import { NetworkProvider } from "@/contexts/NetworkContext";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <NetworkProvider>
+          <Navbar />
           <WebVitals />
           {children}
         </NetworkProvider>
